@@ -3,26 +3,26 @@ import pandas as pd
 import numpy as np
 import nltk
 from nltk import RegexpTokenizer
-
+from nltk.corpus import stopwords
 from nltk.stem import SnowballStemmer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import sys
 import streamlit as st
 
-nltk.data.path.append('stopwords')
+#nltk.data.path.append('stopwords')
 
 
-from nltk.corpus import PlaintextCorpusReader
+#from nltk.corpus import PlaintextCorpusReader
 
 # Загрузка стоп-слов для определенного языка из файловой системы
-corpus_root = 'stopwords'
-stopwords = PlaintextCorpusReader(corpus_root, '.*')
+#corpus_root = 'stopwords'
+#stopwords = PlaintextCorpusReader(corpus_root, '.*')
 
 
 # Загрузка стоп-слов и стеммера
-# nltk.download('stopwords')
-# nltk.download('punkt')
+#nltk.download('stopwords')
+#nltk.download('punkt')
 
 
 class Model_Tfidf():
