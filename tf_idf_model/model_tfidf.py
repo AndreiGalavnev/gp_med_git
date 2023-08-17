@@ -1,23 +1,25 @@
-from re import A
+#from re import A
 import pandas as pd
 import numpy as np
 import nltk
 from nltk import RegexpTokenizer
-from nltk.corpus import stopwords
+#from nltk.corpus import stopwords
 from nltk.stem import SnowballStemmer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-import sys
+from nltk.corpus import PlaintextCorpusReader
+#import sys
 import streamlit as st
 
 #nltk.data.path.append('stopwords')
 
 
-#from nltk.corpus import PlaintextCorpusReader
 
 # Загрузка стоп-слов для определенного языка из файловой системы
-#corpus_root = 'stopwords'
-#stopwords = PlaintextCorpusReader(corpus_root, '.*')
+#corpus_root = 'C:/Users/user/PycharmProjects/local_gp_med/gp_med/stopwords'
+#file_pattern = r'russian\.txt'  # Шаблон имени файла
+#corpus = PlaintextCorpusReader(corpus_root, file_pattern)
+#stopwords = corpus.words('russian.txt')
 
 
 # Загрузка стоп-слов и стеммера
@@ -40,9 +42,13 @@ class Model_Tfidf():
     
     @classmethod
     def stop_words(cls) -> set:
-        stop_words = set(stopwords.words('russian'))
-        custom_stop_words = ("анализ", "уровень", "определение", "анализы", "консультация", "выявление")
-        return set(stop_words.union(custom_stop_words))
+        #stop_words = set(stopwords)
+        #stop_words = set(stopwords.words('russian'))
+        # почему-то работает только с таким способом передачи стоп-слов
+        custom_stop_words = ('мы', 'только', 'тем', 'были', 'было', 'много', 'вы', 'кто', 'три', 'будет', 'бы', 'выявление', 'же', 'можно', 'где', 'чего', 'но', 'здесь', 'им', 'определение', 'после', 'даже', 'под', 'эту', 'ж', 'а', 'ну', 'себе', 'вот', 'не', 'моя', 'что', 'ней', 'нее', 'эти', 'от', 'как', 'тогда', 'чтоб', 'со', 'в', 'зачем', 'больше', 'тот', 'нельзя', 'анализы', 'была', 'иногда', 'лучше', 'она', 'чтобы', 'нибудь', 'хорошо', 'есть', 'того', 'какая', 'них', 'мне', 'всю', 'меня', 'анализ', 'быть', 'уж', 'себя', 'через', 'опять', 'ее', 'вам', 'мой', 'этого', 'с', 'раз', 'вдруг', 'тоже', 'этот', 'сейчас', 'свою', 'два', 'этой', 'наконец', 'то', 'без', 'ли', 'ему', 'теперь', 'уже', 'уровень', 'нет', 'когда', 'на', 'тут', 'перед', 'впрочем', 'они', 'может', 'будто', 'чем', 'разве', 'если', 'какой', 'там', 'ты', 'из', 'всех', 'да', 'его', 'их', 'другой', 'потому', 'об', 'нас', 'за', 'по', 'до', 'ничего', 'всегда', 'ей', 'над', 'и', 'него', 'так', 'между', 'консультация', 'все', 'он', 'сам', 'куда', 'про', 'еще', 'ведь', 'ним', 'вас', 'почти', 'конечно', 'этом', 'при', 'ни', 'том', 'надо', 'хоть', 'такой', 'никогда', 'я', 'для', 'более', 'был', 'один', 'у', 'совсем', 'чуть', 'потом', 'к', 'во', 'всего', 'тебя', 'или', 'о')
+        #custom_stop_words = ("анализ", "уровень", "определение", "анализы", "консультация", "выявление")
+        return set(custom_stop_words)
+        #return set(stop_words.union(custom_stop_words))
     
     def concatenate_values(self, row):
         return ' '.join(row)
