@@ -7,7 +7,8 @@ from sklearn.metrics.pairwise import cosine_similarity
 import streamlit as st
 import boto3
 
-
+access_key = st.secrets["aws"]["access_key"]
+secret_key = st.secrets["aws"]["secret_key"]
 
 class Model_Tfidf():
 
@@ -93,7 +94,8 @@ class Model_Tfidf():
 
 
 # Создание клиента DynamoDB
-dynamodb = boto3.client('dynamodb', region_name='eu-west-2')
+dynamodb = boto3.resource('dynamodb', region_name='eu-west-2',  aws_access_key_id=access_key, aws_secret_access_key=secret_key)
+
 
 # Получение всех элементов из таблицы
 def scan_table(table_name):
