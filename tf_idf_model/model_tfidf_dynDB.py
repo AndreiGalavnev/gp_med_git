@@ -94,8 +94,7 @@ class Model_Tfidf():
 
 
 # Создание клиента DynamoDB
-dynamodb = boto3.resource('dynamodb', region_name='eu-west-2',  aws_access_key_id=access_key, aws_secret_access_key=secret_key)
-
+dynamodb = boto3.client('dynamodb', region_name='eu-west-2', aws_access_key_id=access_key, aws_secret_access_key=secret_key)
 
 # Получение всех элементов из таблицы
 def scan_table(table_name):

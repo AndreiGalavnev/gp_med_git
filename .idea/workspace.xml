@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82dbe14d-bae0-47bf-9d56-3853d2d90140" name="Changes" comment="version with manual added stopwords">
+    <list default="true" id="82dbe14d-bae0-47bf-9d56-3853d2d90140" name="Changes" comment="Added model with dynamodb1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tf_idf_model/model_tfidf.py" beforeDir="false" afterPath="$PROJECT_DIR$/tf_idf_model/model_tfidf.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf_idf_model/model_tfidf_dynDB.py" beforeDir="false" afterPath="$PROJECT_DIR$/tf_idf_model/model_tfidf_dynDB.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +54,28 @@
       <option name="project" value="LOCAL" />
       <updated>1692296838683</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Added model with dynamodb">
+      <created>1692480019281</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1692480019281</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Added model with dynamodb1">
+      <created>1692481465979</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1692481465979</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Added model with dynamodb1">
+      <created>1692483109090</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1692483109090</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -71,6 +92,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="deleted download stopwords" />
     <MESSAGE value="version with manual added stopwords" />
-    <option name="LAST_COMMIT_MESSAGE" value="version with manual added stopwords" />
+    <MESSAGE value="Added model with dynamodb" />
+    <MESSAGE value="Added model with dynamodb1" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added model with dynamodb1" />
   </component>
 </project>
