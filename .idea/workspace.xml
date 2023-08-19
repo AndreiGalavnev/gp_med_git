@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82dbe14d-bae0-47bf-9d56-3853d2d90140" name="Changes" comment="deleted download stopwords">
+    <list default="true" id="82dbe14d-bae0-47bf-9d56-3853d2d90140" name="Changes" comment="version with manual added stopwords">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stopwords/russian" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tf_idf_model/.ipynb_checkpoints/model_tfidf-checkpoint.py" beforeDir="false" afterPath="$PROJECT_DIR$/tf_idf_model/.ipynb_checkpoints/model_tfidf-checkpoint.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tf_idf_model/model_tfidf.py" beforeDir="false" afterPath="$PROJECT_DIR$/tf_idf_model/model_tfidf.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -26,13 +24,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "settings.editor.selected.configurable": "inlay.hints"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -49,7 +47,14 @@
       <option name="project" value="LOCAL" />
       <updated>1692292984747</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="version with manual added stopwords">
+      <created>1692296838683</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1692296838683</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -65,6 +70,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="deleted download stopwords" />
-    <option name="LAST_COMMIT_MESSAGE" value="deleted download stopwords" />
+    <MESSAGE value="version with manual added stopwords" />
+    <option name="LAST_COMMIT_MESSAGE" value="version with manual added stopwords" />
   </component>
 </project>

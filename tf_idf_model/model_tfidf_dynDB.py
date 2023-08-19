@@ -1,35 +1,12 @@
-#from re import A
 import pandas as pd
 import numpy as np
-import nltk
 from nltk import RegexpTokenizer
-#from nltk.corpus import stopwords
 from nltk.stem import SnowballStemmer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-from nltk.corpus import PlaintextCorpusReader
-#import sys
 import streamlit as st
-import time
 import boto3
-import streamlit as st
 
-
-
-#nltk.data.path.append('stopwords')
-
-
-
-# Загрузка стоп-слов для определенного языка из файловой системы
-#corpus_root = 'C:/Users/user/PycharmProjects/local_gp_med/gp_med/stopwords'
-#file_pattern = r'russian\.txt'  # Шаблон имени файла
-#corpus = PlaintextCorpusReader(corpus_root, file_pattern)
-#stopwords = corpus.words('russian.txt')
-
-
-# Загрузка стоп-слов и стеммера
-#nltk.download('stopwords')
-#nltk.download('punkt')
 
 
 class Model_Tfidf():
@@ -47,13 +24,10 @@ class Model_Tfidf():
     
     @classmethod
     def stop_words(cls) -> set:
-        #stop_words = set(stopwords)
-        #stop_words = set(stopwords.words('russian'))
         # почему-то работает только с таким способом передачи стоп-слов
         custom_stop_words = ('мы', 'только', 'тем', 'были', 'было', 'много', 'вы', 'кто', 'три', 'будет', 'бы', 'выявление', 'же', 'можно', 'где', 'чего', 'но', 'здесь', 'им', 'определение', 'после', 'даже', 'под', 'эту', 'ж', 'а', 'ну', 'себе', 'вот', 'не', 'моя', 'что', 'ней', 'нее', 'эти', 'от', 'как', 'тогда', 'чтоб', 'со', 'в', 'зачем', 'больше', 'тот', 'нельзя', 'анализы', 'была', 'иногда', 'лучше', 'она', 'чтобы', 'нибудь', 'хорошо', 'есть', 'того', 'какая', 'них', 'мне', 'всю', 'меня', 'анализ', 'быть', 'уж', 'себя', 'через', 'опять', 'ее', 'вам', 'мой', 'этого', 'с', 'раз', 'вдруг', 'тоже', 'этот', 'сейчас', 'свою', 'два', 'этой', 'наконец', 'то', 'без', 'ли', 'ему', 'теперь', 'уже', 'уровень', 'нет', 'когда', 'на', 'тут', 'перед', 'впрочем', 'они', 'может', 'будто', 'чем', 'разве', 'если', 'какой', 'там', 'ты', 'из', 'всех', 'да', 'его', 'их', 'другой', 'потому', 'об', 'нас', 'за', 'по', 'до', 'ничего', 'всегда', 'ей', 'над', 'и', 'него', 'так', 'между', 'консультация', 'все', 'он', 'сам', 'куда', 'про', 'еще', 'ведь', 'ним', 'вас', 'почти', 'конечно', 'этом', 'при', 'ни', 'том', 'надо', 'хоть', 'такой', 'никогда', 'я', 'для', 'более', 'был', 'один', 'у', 'совсем', 'чуть', 'потом', 'к', 'во', 'всего', 'тебя', 'или', 'о')
-        #custom_stop_words = ("анализ", "уровень", "определение", "анализы", "консультация", "выявление")
         return set(custom_stop_words)
-        #return set(stop_words.union(custom_stop_words))
+        
     
     def concatenate_values(self, row):
         return ' '.join(row)
@@ -81,7 +55,7 @@ class Model_Tfidf():
 
     def get_similar_synonyms(self, df: pd.DataFrame, df_synonyms: pd.DataFrame):
         tfidf_synonyms = self.vectorizer.fit_transform(self.preprocessed_documents(df_synonyms[["analysis"]])) 
-        tfidf_df = self.vectorizer.transform(self.preprocessed_documents(df[["analysis_name"]]))
+        tfidf_df = self.vectorizer.transform(self.preprocessed_documents(df[["Название услуги"]]))
         syn_indexes = []
         syn_similarity = []
         # Вычисление сходства между запросом и текстовыми данными
@@ -105,7 +79,7 @@ class Model_Tfidf():
     def get_similar_analysis(self, df: pd.DataFrame, query: str ):
         
         df.loc[(df["best_match_synonym"].isnull()), ("best_match_synonym", "best_match_analysis")] = ""
-        self.tfidf_matrix = self.vectorizer.fit_transform(self.preprocessed_documents(df[["analysis_name", "best_match_synonym"]]))
+        self.tfidf_matrix = self.vectorizer.fit_transform(self.preprocessed_documents(df[["Название услуги", "best_match_synonym"]]))
         tfidf_query = self.vectorizer.transform([self.preprocessed_query(query)])
 
         similarities = cosine_similarity(tfidf_query, self.tfidf_matrix).flatten()
@@ -114,42 +88,7 @@ class Model_Tfidf():
         
         df["as"] = similarities            
                 
-        return df[["source", "analysis_name", "analysis_cost"]].iloc[sorted_indexes].loc[df["as"] >= 0.15]
-
-
-
-# работа с dynamoDB
-dynamodb = boto3.resource('dynamodb', region_name='eu-west-2',  aws_access_key_id='AKIAQR4LORUH4YRUT22Z', aws_secret_access_key='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')
-
-# Получаем доступ к таблице 
-table = dynamodb.Table('test_for_gp_med')
-# Чтение файла CSV с помощью библиотеки pandas
-df = pd.read_csv("data/preprocessed_data/df_result.csv")
-columns_to_drop = ['Unnamed: 0.1', 'Unnamed: 0']
-df = df.drop(columns=columns_to_drop)
-
-def load_data_to_dynamodb(row):
-    item = {
-        'index': str(row['index']),
-        'source': row['Источник'],
-        'Направление': row['Направление'],
-        'Название услуги': row['Название услуги'],
-        'Цена услуги (руб)': str(row['Цена услуги (руб)']),
-        'Описание услуги': row['Описание услуги'],
-        'best_match_synonym': row['best_match_synonym'],
-        'best_match_analysis': row['best_match_analysis'],
-        'similarity': str(row['similarity'])
-    }
-    table.put_item(Item=item)
-
-
-
-df = df.rename(columns={'source': 'Источник', 'chapter': 'Направление', 'analysis_name':'Название услуги', 'analysis_cost':'Цена услуги (руб)', 'analysis_comment':'Описание услуги'})
-df = df.fillna('-')
-df = df.astype(str)
-items = df.to_dict(orient='records')
-# Загрузка данных из датафрейма в таблицу
-df.apply(load_data_to_dynamodb, axis=1)
+        return df[["source", "Название услуги", "Цена услуги (руб)"]].iloc[sorted_indexes].loc[df["as"] >= 0.15]
 
 
 
@@ -183,23 +122,16 @@ df = df[new_order]
 
 
 
-
-
 if __name__ == "__main__":  
     m_tfidf = Model_Tfidf()
-    df_result = df
-    #print( m_tfidf.get_similar_analysis(df_result, "узи мышц"))
-
     st.set_page_config(layout="wide")
-    
-    
     # Заголовок страницы
     st.title("Поиск медуслуг")
     # Строка ввода для поиска
     search_query = st.text_input("Введите название медуслуги на русском языке", value="")
     # Фильтрация данных на основе поискового запроса
-    filtered_df = m_tfidf.get_similar_analysis(df_result, search_query)
+    filtered_df = m_tfidf.get_similar_analysis(df, search_query)
+    filtered_df = filtered_df.rename(columns={'source': 'Источник'})
     # Вывод DataFrame
-    #st.write(filtered_df)
-    st.dataframe(filtered_df, width=1300)
+    st.dataframe(filtered_df, width=1300, hide_index=True)
     
