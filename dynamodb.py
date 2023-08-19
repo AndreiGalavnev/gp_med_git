@@ -8,7 +8,7 @@ import streamlit as st
 import pandas as pd
 
 
-dynamodb = boto3.resource('dynamodb', region_name='eu-west-2',  aws_access_key_id='AKIAQR4LORUH4YRUT22Z', aws_secret_access_key='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')
+dynamodb = boto3.resource('dynamodb', region_name='eu-west-2',  aws_access_key_id='', aws_secret_access_key='')
 
 # Получаем доступ к таблице 
 table = dynamodb.Table('test_for_gp_med')
