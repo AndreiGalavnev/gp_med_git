@@ -10,8 +10,7 @@ import folium
 from geopy.geocoders import Nominatim
 from streamlit_folium import folium_static
 import os
-#access_key = st.secrets["aws"]["access_key"]
-#secret_key = st.secrets["aws"]["secret_key"]
+
 
 class Model_Tfidf():
 
@@ -115,15 +114,17 @@ class Model_Tfidf():
 
 
 # local launch
-access_key = os.environ.get('AWS_ACCESS_KEY_ID')
-secret_key = os.environ.get('AWS_SECRET_ACCESS_KEY')
-region = os.environ.get('AWS_REGION')
-dynamodb = boto3.client('dynamodb', aws_access_key_id=access_key, aws_secret_access_key=secret_key, region_name=region)
+#access_key = os.environ.get('AWS_ACCESS_KEY_ID')
+#secret_key = os.environ.get('AWS_SECRET_ACCESS_KEY')
+#region = os.environ.get('AWS_REGION')
+#dynamodb = boto3.client('dynamodb', aws_access_key_id=access_key, aws_secret_access_key=secret_key, region_name=region)
 
 
 
 # Создание клиента DynamoDB
-#dynamodb = boto3.client('dynamodb', region_name='eu-west-2', aws_access_key_id=access_key, aws_secret_access_key=secret_key)
+access_key = st.secrets["aws"]["access_key"]
+secret_key = st.secrets["aws"]["secret_key"]
+dynamodb = boto3.client('dynamodb', region_name='eu-west-2', aws_access_key_id=access_key, aws_secret_access_key=secret_key)
 
 # Получение всех элементов из таблицы
 def scan_table(table_name):
