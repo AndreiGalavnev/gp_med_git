@@ -1,19 +1,30 @@
-# для загрузки данных из csv в dynamodb в формате str, затем полный скан из БД в DF с преобразованием в необходимый формат
-import time
-from selenium.webdriver import ActionChains
-from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.options import Options
+# для удаления данных из таблицы и для загрузки данных из csv в dynamodb в формате str, затем полный скан из БД в DF с преобразованием в необходимый формат
 import boto3
-import streamlit as st
 import pandas as pd
+import os
 
 
-dynamodb = boto3.resource('dynamodb', region_name='eu-west-2',  aws_access_key_id='', aws_secret_access_key='')
-
+access_key = os.environ.get('AWS_ACCESS_KEY_ID')
+secret_key = os.environ.get('AWS_SECRET_ACCESS_KEY')
+region = os.environ.get('AWS_REGION')
+dynamodb = boto3.resource('dynamodb', aws_access_key_id=access_key, aws_secret_access_key=secret_key, region_name=region)
 # Получаем доступ к таблице 
 table = dynamodb.Table('test_for_gp_med')
+
+# !!!!!!!!!!!!!! полная очистка таблицы
+response = table.scan()
+while 'Items' in response:
+    items = response['Items']
+    for item in items:
+        table.delete_item(Key={'index': item['index'], 'source': item['source']})
+    try:
+        response = table.scan(ExclusiveStartKey=response.get('LastEvaluatedKey'))
+    except:
+        break
+
+
 # Чтение файла CSV с помощью библиотеки pandas
-df = pd.read_csv('C:/Users/user/PycharmProjects/local_gp_med/gp_med/data/preprocessed_data/df_result.csv')
+df = pd.read_csv('C:/Users/user/PycharmProjects/local_gp_med/gp_med/data/preprocessed_data/df_result_fix.csv')
 columns_to_drop = ['Unnamed: 0.1', 'Unnamed: 0']
 df = df.drop(columns=columns_to_drop)
 
@@ -27,23 +38,24 @@ def load_data_to_dynamodb(row):
         'Описание услуги': row['Описание услуги'],
         'best_match_synonym': row['best_match_synonym'],
         'best_match_analysis': row['best_match_analysis'],
-        'similarity': str(row['similarity'])
+        'similarity': str(row['similarity']),
+        'clinic_id': str(row['clinic_id'])
     }
     table.put_item(Item=item)
 
 
-
+df.reset_index(inplace=True)
 df = df.rename(columns={'source': 'Источник', 'chapter': 'Направление', 'analysis_name':'Название услуги', 'analysis_cost':'Цена услуги (руб)', 'analysis_comment':'Описание услуги'})
 df = df.fillna('-')
 df = df.astype(str)
 items = df.to_dict(orient='records')
+
 # Загрузка данных из датафрейма в таблицу
 df.apply(load_data_to_dynamodb, axis=1)
 
 
 
-# Создание клиента DynamoDB
-dynamodb = boto3.client('dynamodb', region_name='eu-west-2')
+
 
 # Получение всех элементов из таблицы
 def scan_table(table_name):

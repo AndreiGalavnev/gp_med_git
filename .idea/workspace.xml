@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82dbe14d-bae0-47bf-9d56-3853d2d90140" name="Changes" comment="Added model with dynamodb1">
+    <list default="true" id="82dbe14d-bae0-47bf-9d56-3853d2d90140" name="Changes" comment="Added credentials for aws in streamlit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tf_idf_model/model_tfidf_dynDB.py" beforeDir="false" afterPath="$PROJECT_DIR$/tf_idf_model/model_tfidf_dynDB.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +74,14 @@
       <option name="project" value="LOCAL" />
       <updated>1692483109090</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Added credentials for aws in streamlit">
+      <created>1692483777194</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1692483777194</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -94,6 +100,7 @@
     <MESSAGE value="version with manual added stopwords" />
     <MESSAGE value="Added model with dynamodb" />
     <MESSAGE value="Added model with dynamodb1" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added model with dynamodb1" />
+    <MESSAGE value="Added credentials for aws in streamlit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added credentials for aws in streamlit" />
   </component>
 </project>
