@@ -153,10 +153,10 @@ df['similarity'] = df['similarity'].astype(float)
 
 
 if __name__ == "__main__":  
-    #url = 'https://raw.githubusercontent.com/your_username/your_repository/master/path/to/your/file.csv'
-    #df_coord = pd.read_csv(url)
-
-    df_coord = pd.read_csv('C:/Users/user/PycharmProjects/local_gp_med/gp_med/data/df_contacts_new_with_coordinates.csv')
+    url = 'https://raw.githubusercontent.com/AndreiGalavnev/gp_med_git/master/data/df_contacts_new_with_coordinates.csv'
+    df_coord = pd.read_csv(url)
+    # for local deploy
+    #df_coord = pd.read_csv('C:/Users/user/PycharmProjects/local_gp_med/gp_med/data/df_contacts_new_with_coordinates.csv')
     m_tfidf = Model_Tfidf().model_prepare(df)
     #m_tfidf = Model_Tfidf()
     st.set_page_config(layout="wide")
