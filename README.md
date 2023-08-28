@@ -1,3 +1,4 @@
 # med_project
-IT-academy DS. Group project
-This is a test deployment
+IT-academy Data Science. 
+Group project.
+Authors: https://github.com/KVarvara, https://github.com/AndreiGalavnev  https://github.com/kuharevich, https://github.com/Bulavskaya and Georgy Voronich
