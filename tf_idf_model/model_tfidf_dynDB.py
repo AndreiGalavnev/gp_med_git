@@ -168,7 +168,7 @@ if __name__ == "__main__":
     geolocator = Nominatim(user_agent='my-app')
     geo_search_query = st.text_input("Введите свой адрес (город, улица, дом)", value="", key="address_input")
     button = st.button('Отправить запрос')
-    # !!!!!!!!!!!! надо удалить лишние столбцы 
+
     if button:
     # Действия, выполняемые при нажатии кнопки
         filtered_df = m_tfidf.get_similar_analysis(search_query)
